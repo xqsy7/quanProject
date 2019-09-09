@@ -21,9 +21,17 @@
                         <span>精选</span>
                         <div></div>
                     </div>
-                    <div class="center">
-                        <div v-for="(item,index) in headData" :key="index">{{item}}</div>
+                    <div class="wrapper" ref="wrapper">
+                        <div class="center">
+                            <div v-for="(item,index) in headData" :key="index">{{item}}</div>
+                        </div>
                     </div>
+                    <!-- <van-swipe class="center">
+                        <van-swipe-item v-for="(item,index) in headData" :key="index" class="center1">{{item}}</van-swipe-item>
+                    </van-swipe> -->
+
+
+                    
                     <div class="iconfont select">&#xe64d;</div>
                 </div>
             </div>
@@ -32,6 +40,13 @@
 </template>
 
 <script>
+import Vue from 'vue';
+import { Swipe, SwipeItem } from 'vant';
+import { Lazyload } from 'vant';
+import http from "@utils/http";
+import BScroll from 'better-scroll';
+Vue.use(Lazyload);
+Vue.use(Swipe).use(SwipeItem);
 export default {
     name:"Head",
     data(){
@@ -39,6 +54,12 @@ export default {
             headData:["女装","居家日用","美妆","男装","数码家电"]
         }
     },
+    mounted(){
+        let scroll = new BScroll(this.$refs.wrapper,{
+            scrollX: true,
+            click: true
+        })
+    }
     
 }
 </script>
@@ -57,7 +78,6 @@ export default {
     top:0;
     left:0;
     border-bottom: 1px solid rgba(0,0,0,0);
-    margin-bottom: 4rem;
 }
 .seach1{
     height: .9rem;
@@ -140,6 +160,11 @@ export default {
     height: .05rem;
     background:#fff;
 }
+.wrapper{
+    width: 5.5rem;
+    overflow: hidden;
+    height:.8rem;
+}
 .center{
     margin-left: .2rem;
     display: flex;
@@ -147,6 +172,9 @@ export default {
     justify-content: flex-start;
     font-size: .34rem;
     color: rgba(255,255,255,.65);
+}
+.center1{
+    width: .1rem;
 }
 .center div{
     margin-left: .05rem;

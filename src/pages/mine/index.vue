@@ -8,12 +8,12 @@
             </div>
             <div class="info">
                 <div class="user_portrait">
-                    <img src="/public/img/user.png" alt="">
+                    <img src="img/user.png" alt="">
                 </div>
                 <div class="user_type">
                     <span>
-                        <a href="">登陆</a>
-                        <a href="">/注册</a>
+                        <a href="#/login">登陆</a>
+                        <a href="#/register">/注册</a>
                     </span>
                 </div>
             </div>
@@ -24,13 +24,13 @@
                 <div class="user_min">
                     <div class="my_favorite">
                     <a href="">
-                        <img src="/public/img/love.png" alt="">
+                        <img src="img/love.png" alt="">
                         <span>我的收藏</span>
                     </a>
                 </div>
                 <div class="my_foot">
                     <a href="">
-                        <img src="/public/img/foot.png" alt="">
+                        <img src="img/foot.png" alt="">
                         <span>我的足迹</span>
                     </a>
                 </div>
@@ -57,15 +57,15 @@ export default {
         return {
             liData:[
                 {
-                    imgSrc:"/public/img/tools1.png",
+                    imgSrc:"img/tools1.png",
                     title:'领劵帮助',
                 },
                 {
-                    imgSrc:"/public/img/tools2.png",
+                    imgSrc:"img/tools2.png",
                     title:'专属客服',
                 },
                 {
-                    imgSrc:"/public/img/tools4.png",
+                    imgSrc:"img/tools4.png",
                     title:'意见反馈',
                 }
             ]
@@ -87,14 +87,12 @@ export default {
 .mine1{
     max-width: 750px;
     height: 6rem;
-    background: url(/public/img/user_bg.png) no-repeat #f6f6f6;
-    -webkit-background-size: 100% 195px;
-    -moz-background-size: 100% 195px;
+    background: url('https://cmsstatic.dataoke.com/wap_new/user/images/user_bg.png?v=2019-09-06') no-repeat #f6f6f6;
     background-size: 100% 195px;
     position: relative;
     z-index: 1;
     zoom: 1;
-    overflow: hidden;
+    height:100%;
 }
 .else{
     position: absolute;
@@ -215,7 +213,7 @@ export default {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 67px;  
+    height: 1.2rem;  
 }
 .card ul li img{
     width: .5rem;

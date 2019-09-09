@@ -8,11 +8,14 @@
                 </a>
             </li>
         </ul>
+
+
     </div>
 </template>
 
 <script>
 import http from "@utils/http";
+import {iconNav} from "@api";
 export default {
     name:"IconNav",
     data(){
@@ -20,21 +23,18 @@ export default {
             liData:[],
         }
     },
-    created(){
-        http("get","/api/category/product/model-detail-by-model-id-new?entityId=4&modelId=10022&proModelId=2&source=3&userId=669231&tuserId=669231")
-        .then((data)=>{
-            this.liData = data.data.config.data
-            console.log(data)
-        })
-    }
+    async created(){
+        let data = await iconNav();
+        this.liData = data.data.config.data;
+    },
 }
 </script>
 
 <style scoped>
 .iconNav{
-    position: absolute;
+    position: relative;
     width: 100%;
-    top:9.5rem;
+    top:7.5rem;
     margin-top:.1rem;
 }
 .iconNav ul{

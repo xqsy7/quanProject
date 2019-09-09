@@ -1,11 +1,12 @@
 <template>
-    <div class="home">
-        <router-link to="/home" tag="div">
+    <div class="home page">
+        <router-link to="/home">
         </router-link>
         <Head/>
         <Banner/>
         <IconNav/>
         <GroupTop/> 
+        <FindProduct/>
     </div>
 </template>
 
@@ -14,13 +15,15 @@ import Head from "@components/homePage/head.vue";
 import Banner from "@components/homePage/banner.vue";
 import IconNav from "@components/homePage/iconNav.vue";
 import GroupTop from "@components/homePage/goupTop.vue";
+import FindProduct from "@components/homePage/findProduct.vue";
 export default {
     name:"Home",
     components:{
         Head,
         Banner,
         IconNav,
-        GroupTop
+        GroupTop,
+        FindProduct
     }
 }
 </script>
