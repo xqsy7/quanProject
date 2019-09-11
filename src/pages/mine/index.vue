@@ -8,12 +8,12 @@
             </div>
             <div class="info">
                 <div class="user_portrait">
-                    <img src="img/user.png" alt="">
+                    <img src="img/user.png" alt="" ref="imgT">
                 </div>
                 <div class="user_type">
                     <span>
-                        <a href="#/login">登陆</a>
-                        <a href="#/register">/注册</a>
+                        <a href="#/login" ref="name">登陆</a>
+                        <a href="#/register" ref="del">/注册</a>
                     </span>
                 </div>
             </div>
@@ -23,7 +23,7 @@
                 <div class=""></div>
                 <div class="user_min">
                     <div class="my_favorite">
-                    <a href="">
+                    <a href="#/collection">
                         <img src="img/love.png" alt="">
                         <span>我的收藏</span>
                     </a>
@@ -70,6 +70,20 @@ export default {
                 }
             ]
         }
+    },
+    beforeRouteEnter (to, from, next) {
+        if(sessionStorage.getItem("token")){
+            next((vm)=>{
+                vm.$refs.name.textContent = sessionStorage.getItem("token");
+                vm.$refs.del.textContent = "";
+                vm.$refs.imgT.src = "img/touxiang.jpg"
+            });
+
+        }else{
+            next("/login");
+        }
+    },
+    methods:{
     }
 }
 </script>
@@ -110,7 +124,6 @@ export default {
     position: relative;
     z-index: 1;
     zoom: 1;
-    margin-top: 16px;
     display: flex;
     justify-content: flex-start;
     align-items: center;

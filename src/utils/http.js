@@ -3,7 +3,7 @@ import loading from "@lib/loading/index.js";
 // console.log(loading.close())
 let http = axios.create({
     withCredentials:true,
-    timeout:2000
+    timeout:3000
 })
 
 // 请求拦截

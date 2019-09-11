@@ -4,7 +4,10 @@
         <Xu-Bscroll ref="scroll">
         <div class="productList">
             <ul>
-                <li v-for="(item,index) in shopLeftList" :key="index">
+                <router-link
+                :to="'/details/'+item.goodsId+'/'+item.computedPrice+'/'+item.yuanjia+'/'+item.xiaoliang"
+                tag="li"
+                 v-for="(item,index) in shopLeftList" :key="index">
                     <a href="">
                         <div class="productList_img">
                             <img :src="item.pic" alt="">
@@ -39,12 +42,17 @@
                             </span>
                         </div>
                     </a>
-                </li>
+                </router-link>
             </ul>
 
 
             <ul>
-                <li v-for="(item,index) in shopRightList" :key="index">
+                <router-link 
+                tag="li"
+                
+                v-for="(item,index) in shopRightList" :key="index"
+                :to="'/details/'+item.goodsId+'/'+item.computedPrice+'/'+item.yuanjia+'/'+item.xiaoliang"
+                >
                     <a href="">
                         <div class="productList_img">
                             <img :src="item.pic" alt="">
@@ -79,7 +87,7 @@
                             </span>
                         </div>
                     </a>
-                </li>
+                </router-link>
             </ul>
         </div>
         </Xu-Bscroll>
@@ -87,6 +95,7 @@
 </template>
 
 <script>
+import {mapMutations} from "vuex";
 import http from "@utils/http";
 import {findProduct,findProductR} from "@api";
 
@@ -96,7 +105,7 @@ export default {
         return {
             shopLeftList:[],
             shopRightList:[],
-            id: 3,
+            num:"",
         }
     },
     async created(){
@@ -105,6 +114,7 @@ export default {
                     item.computedPrice = (item.yuanjia - item.quanJine).toFixed(2);
                 })
         this.shopLeftList = data.data.list;
+        console.log(data)
 
         let data1 = await findProductR();
         data1.data.list.forEach((item)=>{
@@ -113,9 +123,7 @@ export default {
         this.shopRightList = data1.data.list;
     },
     mounted(){
-        console.log(this.$refs.scroll)
         this.$refs.scroll.pullingUpHandler(async ()=>{
-            console.log(111);
             let data = await findProduct();
             data.data.list.forEach((item)=>{
                     item.computedPrice = (item.yuanjia - item.quanJine).toFixed(2);
@@ -134,10 +142,22 @@ export default {
                 this.id++;
             }
         })
+        
+    },
+    activated() {
+
     },
     updated(){
    
     this.$refs.scroll.handlefinishPullUp();
+  },
+  methods:{
+      clickHandler(index){
+          
+      },
+      ...mapMutations({
+      getDataHandler: "details/getDataHandler"
+    })
   }
 }
 </script>

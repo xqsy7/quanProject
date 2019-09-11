@@ -12,8 +12,9 @@ export default {
         this.scroll = new Bscroll(this.$refs.wrapper,{
             // 开启上拉加载更多
             pullUpLoad:true,
+            tap:true,
+            click:true,
         })
-        console.log(this.scroll);
     },
     methods:{
         pullingUpHandler(cb){

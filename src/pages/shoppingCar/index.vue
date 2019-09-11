@@ -16,7 +16,8 @@ export default {
         Top,
         Center,
         Bottom
-    }
+    },
+    
 }
 </script>
 

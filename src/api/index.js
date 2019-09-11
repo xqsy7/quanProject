@@ -1,5 +1,11 @@
 import http from "@utils/http.js";
 
+// 首页头部导航栏
+export const headNav = ()=> http({
+    methods:"get",
+    url:"/api/category/get-category-list?entityId=4",
+})
+
 // banner 轮播图
 export const banner = ()=> http({methods:"get",url:"/api/category/product/model-detail-by-model-id-new?entityId=4&modelId=-1&proModelId=1&source=3&userId=669231&tuserId=669231"});
 
@@ -29,3 +35,25 @@ export const findProductR = (id=2)=>http({methods:"get",url:"/api/category/index
         pageId:id
     }
     })
+
+// 搜索页面
+export const seach = (value)=>http({
+    methods:"get",
+    url:"/index.php",
+    data:{
+        r:"index/kwarr",
+        kw:value,
+        token:false
+    }
+})
+
+// 详情页
+
+export const getData = (goodsIds)=>http({
+    methods:"get",
+    url:"/api/goods/get-goods-detail-img?",
+    data:{
+        goodsId:goodsIds,
+        entityId:4
+    }
+})

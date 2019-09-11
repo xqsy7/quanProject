@@ -1,7 +1,7 @@
 <template>
   <div class="top">
     <label>
-      <input type="checkbox" />全选
+      <input type="checkbox" @click="checkedsAllHandler()" :checked="checkedAll"/>全选
     </label>
     <p>商品</p>
     <p>单价</p>
@@ -17,13 +17,16 @@ export default {
   name:"Top",
   computed: {
     ...mapState({
-      selectedAll:state=>state.ShoppingCar.selectedAll
+      checkedAll:state=>state.ShoppingCar.checkedAll
     })
   },
   methods: {
     ...mapMutations({
-      modifySelected:"ShoppingCar/modifySelected"
-    })
+      checkedAllHandler:"ShoppingCar/checkedAllHandler",
+    }),
+    checkedsAllHandler(){
+      this.checkedAllHandler();
+    }
   },
 };
 </script>
@@ -43,7 +46,7 @@ export default {
   text-align: center;
 }
 .top > p:nth-child(2) {
-  width: 400px;
+  width: 200px;
 }
 
 .top > label {

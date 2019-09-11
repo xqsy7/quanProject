@@ -1,43 +1,57 @@
 <template>
   <div class="content">
-    <div class="goods">
+    <div class="goods" v-for="(item,index) in shoppingList" :key="index">
       <label>
-        <input type="checkbox" />
+        <input type="checkbox" @click="checkedHandler(index)" :checked="item.checked"/>
       </label>
       <div class="goodsImg">
-        <img
+        <img :src="item.imgSrc"
           alt
         />
       </div>
-      <div class="goodsInfo"></div>
-      <p class="goodsPrice"></p>
+      <p class="goodsPrice">{{item.juanhou}}</p>
       <div class="num">
-        <button >-</button>
-        <input type="text" />
-        <button >+</button>
+        <button @click="clickReduceHandler(index)">-</button>
+        <input type="text" :value="item.num"/>
+        <button @click="clickAddHandler(index)">+</button>
       </div>
-      <p class="Subtotal">￥</p>
+      <p class="Subtotal">￥{{item.price}}</p>
       <p class="operation">删除</p>
     </div>
   </div>
 </template>
 
 <script>
-import { mapState,mapMutations} from "vuex";
+import { mapState,mapMutations,mapActions} from "vuex";
 export default {
   name: "Center",
-//   computed: {
-//     ...mapState({
-//       goods: state => state.ShoppingCar.goods
-//     })
-//   },
-//   methods:{
-//     ...mapMutations({
-//       handleGoodsChange:"ShoppingCar/handleGoodsChange",
-//       handleReducer:"ShoppingCar/handleReducer",
-//       handleAdd:"ShoppingCar/handleAdd"
-//     })
-//   }
+  activated(){
+    this.getMkDateHandler();
+  },
+  computed: {
+    ...mapState({
+      shoppingList: state => state.ShoppingCar.shoppingList
+    })
+  },
+  methods:{
+    ...mapMutations({
+      addHandler:"ShoppingCar/addHandler",
+      reduceHandler:"ShoppingCar/reduceHandler",
+      checkedChangeHandler:"ShoppingCar/checkedChangeHandler"
+    }),
+    ...mapActions({
+      getMkDateHandler:"ShoppingCar/getMkDateHandler",
+    }),
+    clickReduceHandler(index){
+      this.reduceHandler(index);
+    },
+    clickAddHandler(index){
+      this.addHandler(index);
+    },
+    checkedHandler(index){
+      this.checkedChangeHandler(index)
+    }
+  }
 };
 </script>
 <style>
@@ -46,39 +60,37 @@ export default {
     display: flex;
     height: 107px;
     align-items: center;
-    background: #ccc;
+    background: #fff;
   }
   .goods > label {
     width: 118px;
     text-align: center;
   }
-  .goods > .goodsInfo {
-    width: 200px;
-  }
   .goods > .goodsPrice {
-    width: 200px;
+    width: 2.4rem;
     text-align: center;
   }
   .goods > .num {
-    overflow: hidden;
+    /* overflow: hidden; */
     display: flex;
   }
   .goods > .num > button {
-    width: 20px;
-    height: 20px;
+    width: .3rem;
+    height: .3rem;
     border: 0;
   }
   .goods > .num > input {
     width: 40px;
+    height: .3rem;
   }
 
   .goods > .Subtotal {
-    width: 200px;
-    text-align: center;
+    width: 2rem;
+    margin-left: .2rem;
   }
 
   .goods > .operation {
-    width: 86px;
+    width: 1.6rem;
     text-align: center;
   }
   img{

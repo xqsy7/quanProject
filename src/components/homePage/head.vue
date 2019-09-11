@@ -23,14 +23,12 @@
                     </div>
                     <div class="wrapper" ref="wrapper">
                         <div class="center">
-                            <div v-for="(item,index) in headData" :key="index">{{item}}</div>
+                            <v-touch 
+                            tag="div"
+                            @swipeleft="onSwipeLeft()"
+                            v-for="(item,index) in headData" :key="index" class="center1">{{item.name}}</v-touch>
                         </div>
                     </div>
-                    <!-- <van-swipe class="center">
-                        <van-swipe-item v-for="(item,index) in headData" :key="index" class="center1">{{item}}</van-swipe-item>
-                    </van-swipe> -->
-
-
                     
                     <div class="iconfont select">&#xe64d;</div>
                 </div>
@@ -45,20 +43,29 @@ import { Swipe, SwipeItem } from 'vant';
 import { Lazyload } from 'vant';
 import http from "@utils/http";
 import BScroll from 'better-scroll';
+import {headNav} from "@api";
 Vue.use(Lazyload);
 Vue.use(Swipe).use(SwipeItem);
 export default {
     name:"Head",
     data(){
         return {
-            headData:["女装","居家日用","美妆","男装","数码家电"]
+            headData:[]
         }
+    },
+    async created(){
+        let data = await headNav()
+        this.headData = data.data;
     },
     mounted(){
         let scroll = new BScroll(this.$refs.wrapper,{
             scrollX: true,
             click: true
         })
+    },
+    methods:{
+        onSwipeLeft(){
+        }
     }
     
 }
@@ -134,12 +141,10 @@ export default {
 }
 .nav-center{
     margin: 0 .15rem 0 .3rem;
-    position: relative;
-    z-index: 1;
-    zoom: 1;
     display: flex;
     justify-content: flex-start;
     align-items: center;
+    height:.8rem;
 }
 .selected{
     display: flex;
@@ -166,18 +171,18 @@ export default {
     height:.8rem;
 }
 .center{
-    margin-left: .2rem;
+    width: 15rem;
+    margin-left: .4rem;
     display: flex;
     align-items: center;
     justify-content: flex-start;
     font-size: .34rem;
     color: rgba(255,255,255,.65);
-}
-.center1{
-    width: .1rem;
+    overflow: hidden;
+    white-space: nowrap;
 }
 .center div{
-    margin-left: .05rem;
+    margin-left: .1rem;
 }
 .select{
     position: absolute;

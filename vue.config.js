@@ -10,6 +10,10 @@ module.exports = {
             "/index.php":{
                 target:"http://www.0quan8.com",
                 changeOrigin:true
+            },
+            "/dianying":{
+                target:"http://m.maoyan.com",
+                changeOrigin:true,
             }
         } 
     },

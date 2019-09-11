@@ -1,6 +1,8 @@
 <template>
     <div id="app">
-        <router-view></router-view>
+        <keep-alive>
+            <router-view></router-view>  
+        </keep-alive>
         <TabBar v-if="$route.meta.flag"/>
         <AsideFixed/>
     </div>

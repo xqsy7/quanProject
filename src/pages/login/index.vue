@@ -11,21 +11,21 @@
                 <label>
                     <div class="phone">
                         <i class="iconfont iconfont2">&#xe697;</i>
-                        <input type="text" placeholder="手机号码">
-                        <i class="iconfont iconfont3">&#xe615;</i>
-                        <p>请输入正确11位的手机号码！</p>
+                        <input type="text" placeholder="用户名" @blur="blurHandler($event)" ref="input_name">
+                        <i class="iconfont iconfont3" @click="delHandler()">&#xe615;</i>
+                        <p :class="flag?'userName':'userName1'" ref="userName"></p>
                     </div>
                 </label>
                  <label>
                     <div class="password">
                         <i class="iconfont iconfont4">&#xe623;</i>
-                        <input type="password" placeholder="密码">
-                        <i class="iconfont iconfont5">&#xe718;</i>
-                        <p>请输入正确11位的手机号码！</p>
+                        <input type="password" placeholder="密码" @blur="bluePassHandler($event)" ref="input_password">
+                        <i class="iconfont iconfont5" @click="showHandler()">&#xe718;</i>
+                        <p ref="password" :class="red?'userName':'userName1'"></p>
                     </div>
                 </label>
                 <div class="btn">
-                    <button class="btn1">登陆</button>
+                    <button class="btn1" @click="clickHandler()">登陆</button>
                 </div>
                 <div class="resiger">
                     
@@ -46,11 +46,67 @@
 </template>
 
 <script>
+import axios from "axios";
 export default {
     name:"Login",
+    data(){
+        return {
+            flag:false,
+            red:false
+        }
+    },
     methods:{
         clickBackHandler(){
             this.$router.back();
+        },
+        blurHandler(e){
+            if(this.$refs.userName.textContent == "" || this.$refs.userName.textContent == "用户名不存在"){
+                axios({
+                method:"get",
+                url:'http://localhost:3000/userList?name='+e.target.value,
+                }).then((data)=>{
+                    if(data.data.length>0){
+                        this.flag = false;
+                        this.$refs.userName.textContent = "用户名输入正确"
+                    }else{
+                        this.flag = true;
+                        this.$refs.userName.textContent = "用户名不存在"
+                    }
+                })
+            }
+        },
+        bluePassHandler(e){
+            this.$refs.input_password.type = "password";
+           if(this.$refs.password.textContent == "" || this.$refs.password.textContent == "密码输入错误"){
+               axios({
+                method:"get",
+                url:'http://localhost:3000/userList?password='+e.target.value,
+            }).then((data)=>{
+                if(data.data.length>0){
+                    this.red = false;
+                    this.$refs.password.textContent = "密码输入正确"
+                }else{
+                    this.red = true;
+                    this.$refs.password.textContent = "密码输入错误"
+                }
+            }) 
+           }
+        },
+        clickHandler(){
+            if( this.$refs.password.textContent == "密码输入正确" && this.$refs.userName.textContent == "用户名输入正确"){
+                sessionStorage.setItem("token",this.$refs.input_name.value);
+                this.$refs.input_name.value = "";
+                this.$refs.input_password.value = "";
+                this.$refs.password.textContent = "";
+                this.$refs.userName.textContent = "";
+                this.$router.push("/home");
+            }
+        },
+        delHandler(){
+            this.$refs.input_name.value = "";
+        },
+        showHandler(){
+            this.$refs.input_password.type = "text";
         }
     }
 }
@@ -112,11 +168,12 @@ export default {
     font-size: .3rem;
     border: 0;
     width: 90%;
-    background: 0 0;
     width: 4rem;
     height:.45rem;
     margin-right: .1rem;
     margin-left: .1rem;
+    outline: none;
+    background-color: rgba(0, 0, 0, 0);
 }
 .phone,.password{
     height: 1.3rem;
@@ -129,7 +186,7 @@ export default {
 .btn1{
     margin: 0 auto;
     display: block;
-    width: 5rem;
+    width: 6rem;
     background: #eee;
     color: #666;
     font-size: .3rem;
@@ -162,6 +219,14 @@ export default {
     margin-right: 2rem;
     font-size: .25rem;
     color: #666;
+}
+.userName{
+    color: red;
+    font-size: .2rem
+}
+.userName1{
+    color: aqua;
+    font-size: .2rem;
 }
 
 </style>

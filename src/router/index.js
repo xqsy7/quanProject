@@ -6,7 +6,9 @@ import collection from "./collection"
 import shoppingCar from "./shoppingCar"
 import login from "./login"
 import register from "./register"
-
+import city from './city';
+import seach from "./seach";
+import details from "./details";
 Vue.use(VueRouter);
 
 const router = new VueRouter({
@@ -21,8 +23,13 @@ const router = new VueRouter({
         collection,
         shoppingCar,
         login,
-        register
+        register,
+        city,
+        seach,
+        details
     ]
 })
-
+router.beforeEach((to,from,next)=>{
+    next();
+})
 export default router;

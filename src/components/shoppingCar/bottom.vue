@@ -1,12 +1,12 @@
 <template>
   <div class="footer">
     <van-submit-bar
-        :price="3050"
+        :price="goodsSum.goodsSumPrice"
         button-text="提交订单"
         @submit="onSubmit"
         >
         <label class="checkCss">
-            全选<input type="checkbox" class="checkAll">
+            全选<input type="checkbox" class="checkAll" :checked="checkedAll" @click="clickHandler()">
         </label>
         <!-- <van-checkbox v-model="checked">全选</van-checkbox>
         <span slot="tip">
@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import {mapGetters} from "vuex";
+import {mapGetters,mapState,mapMutations} from "vuex";
 import Vue from 'vue';
 import { SubmitBar } from 'vant';
 
@@ -32,10 +32,24 @@ export default {
             checked:"",
         }
     },
+    computed:{
+        ...mapState({
+            checkedAll : state=>state.ShoppingCar.checkedAll
+        }),
+        ...mapGetters({
+            goodsSum : "ShoppingCar/goodsSum"
+        })
+    },
     methods:{
         onSubmit(){
 
-        }
+        },
+        clickHandler(){
+            this.checkedAllHandler()
+        },
+        ...mapMutations({
+            checkedAllHandler:"ShoppingCar/checkedAllHandler"
+        })
     }
     
 };
