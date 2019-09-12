@@ -1,11 +1,16 @@
 <template>
     <div class="banner">
         <div class="bacColor"></div>
-        <van-swipe :autoplay="5000" class="imgBox" :touchable=true :duration="500">
-            <van-swipe-item v-for="(item, index) in bannerImg" :key="index">
-                <img v-lazy="item.pic" />
-            </van-swipe-item>
-        </van-swipe>
+        <div class="swiper-container" ref="swiperContainer">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide imgBox"
+                    v-for="(item,index) in bannerImg" :key= "index"
+                    >
+                    <img :src="item.pic" alt="">
+                </div>
+            </div>
+            <div class="swiper-pagination"></div>
+        </div>
         <ul>
             <li v-for="(item,index) in ulData" :key="index" :class="index==0?'bigImg':'leftImg'">
                 <img :src="item.address" alt="">
@@ -15,12 +20,7 @@
 </template>
 
 <script>
-import Vue from 'vue';
-import { Swipe, SwipeItem } from 'vant';
-import { Lazyload } from 'vant';
-import {banner,imgData} from "@api";
-Vue.use(Lazyload);
-Vue.use(Swipe).use(SwipeItem);
+import http from "@utils/http"
 export default {
     name:"Banner",
     data(){
@@ -29,25 +29,24 @@ export default {
             ulData:[]
         }
     },
-    components:{
-        
-    },
     mounted(){
         var mySwiper = new Swiper(this.$refs.swiperContainer, {
             autoplay: true,//可选选项，自动滑动
+            // effect : 'fade',
             pagination: {
                  el: '.swiper-pagination',
             },
         })
     },
-    async created(){
-        let data = await banner();
-        
-        this.bannerImg = data.data.config;
-
-        let uldata = await imgData();
-
-        this.ulData = uldata.data.config;
+    created(){
+        http("get","/api/category/product/model-detail-by-model-id-new?entityId=4&modelId=-1&proModelId=1&source=3&userId=669231&tuserId=669231")
+        .then((data)=>{
+            this.bannerImg = data.data.config;
+        });
+        http("get","/api/category/product/model-detail-by-model-id-new?entityId=4&modelId=10021&proModelId=19&source=3&userId=669231&tuserId=669231")
+        .then((data)=>{
+            this.ulData = data.data.config;
+        })
     }
 }
 </script>
@@ -56,6 +55,7 @@ export default {
 
 .banner{
     width: 100%;
+    height: 100%;
     position: absolute;
     top: 2rem;
     z-index: 101;
@@ -71,7 +71,10 @@ export default {
 .imgBox{
     width: 8rem;
     height: 3.4rem;
-    margin-left: .24rem;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-left: .2rem;
     margin-right: .2rem;
 }
 .imgBox img{

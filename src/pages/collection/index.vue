@@ -6,38 +6,21 @@
         </div>
         <div class="layout">
             <div class="user_coll">
-                <div class="img" ref="show"></div>
-                <div class="text" v-show="flag">登陆后添加收藏
+                <div class="img"></div>
+                <div class="text">登陆后添加收藏
                     <p class="msg">收藏云端同步，不错过任何优惠哦</p>
                 </div>
-                <div class="btn" v-show="flag">
+                <div class="btn">
                     <a href="" class="btn-a">登陆/注册</a>
                 </div>
             </div>
         </div>
-        <a href="#/city" class="city">城市</a>
     </div>
 </template>
 
 <script>
 export default {
     name:"Collection",
-    data(){
-        return {
-            flag:true,
-        }
-    },
-    beforeRouteEnter (to, from, next) {
-        if(sessionStorage.getItem("token")){
-            next((vm)=>{
-                vm.flag = false;
-                vm.$refs.show.textContent = "尊敬的用户,您还没有任何的收藏";
-            });
-
-        }else{
-            next("/login");
-        }
-    }
 }
 </script>
 
@@ -82,14 +65,10 @@ export default {
     background-color: #fff;
 }
 .img{
-    background: url("https://cmsstatic.dataoke.com/wap_new/user/images/user_sc.svg?v=2019-09-10") center bottom no-repeat;
+    background: url(/public/img/user_sc.svg) center bottom no-repeat;
     width: 100%;
     height: 35vh;
     margin-bottom: .2rem;
-    font-size: .2rem;
-    text-align: center;
-    line-height: 35vh;
-    color: aqua;
 }
 .text{
     font-size: .3rem;
@@ -106,11 +85,5 @@ export default {
     box-shadow: 0 2px 6px 0 rgba(255,135,135,.5);
     font-size: .3rem;
     color: #ffffff;
-}
-.city{
-    position: absolute;
-    top: .3rem;
-    right:.2rem;
-    font-size: .3rem;
 }
 </style>

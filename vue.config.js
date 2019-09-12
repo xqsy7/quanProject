@@ -2,20 +2,16 @@ const path = require("path");
 module.exports = {
     // 跨域的配置
     devServer:{
-        proxy:{
+        proxy: {
+            "/goods":{
+                target:"http://localhost:9010",
+                changeOrigin: true,      
+            },
             "/api":{
                 target:"http://cmsjapi.dataoke.com",
                 changeOrigin:true
-            },
-            "/index.php":{
-                target:"http://www.0quan8.com",
-                changeOrigin:true
-            },
-            "/dianying":{
-                target:"http://m.maoyan.com",
-                changeOrigin:true,
-            }
-        } 
+            },  
+        }
     },
     configureWebpack:{
         resolve:{

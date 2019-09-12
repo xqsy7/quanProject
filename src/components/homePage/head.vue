@@ -21,15 +21,9 @@
                         <span>精选</span>
                         <div></div>
                     </div>
-                    <div class="wrapper" ref="wrapper">
-                        <div class="center">
-                            <v-touch 
-                            tag="div"
-                            @swipeleft="onSwipeLeft()"
-                            v-for="(item,index) in headData" :key="index" class="center1">{{item.name}}</v-touch>
-                        </div>
+                    <div class="center">
+                        <div v-for="(item,index) in headData" :key="index">{{item}}</div>
                     </div>
-                    
                     <div class="iconfont select">&#xe64d;</div>
                 </div>
             </div>
@@ -38,35 +32,13 @@
 </template>
 
 <script>
-import Vue from 'vue';
-import { Swipe, SwipeItem } from 'vant';
-import { Lazyload } from 'vant';
-import http from "@utils/http";
-import BScroll from 'better-scroll';
-import {headNav} from "@api";
-Vue.use(Lazyload);
-Vue.use(Swipe).use(SwipeItem);
 export default {
     name:"Head",
     data(){
         return {
-            headData:[]
+            headData:["女装","居家日用","美妆","男装","数码家电"]
         }
     },
-    async created(){
-        let data = await headNav()
-        this.headData = data.data;
-    },
-    mounted(){
-        let scroll = new BScroll(this.$refs.wrapper,{
-            scrollX: true,
-            click: true
-        })
-    },
-    methods:{
-        onSwipeLeft(){
-        }
-    }
     
 }
 </script>
@@ -85,6 +57,7 @@ export default {
     top:0;
     left:0;
     border-bottom: 1px solid rgba(0,0,0,0);
+    margin-bottom: 4rem;
 }
 .seach1{
     height: .9rem;
@@ -141,10 +114,12 @@ export default {
 }
 .nav-center{
     margin: 0 .15rem 0 .3rem;
+    position: relative;
+    z-index: 1;
+    zoom: 1;
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    height:.8rem;
 }
 .selected{
     display: flex;
@@ -165,24 +140,16 @@ export default {
     height: .05rem;
     background:#fff;
 }
-.wrapper{
-    width: 5.5rem;
-    overflow: hidden;
-    height:.8rem;
-}
 .center{
-    width: 15rem;
-    margin-left: .4rem;
+    margin-left: .2rem;
     display: flex;
     align-items: center;
     justify-content: flex-start;
     font-size: .34rem;
     color: rgba(255,255,255,.65);
-    overflow: hidden;
-    white-space: nowrap;
 }
 .center div{
-    margin-left: .1rem;
+    margin-left: .05rem;
 }
 .select{
     position: absolute;

@@ -8,12 +8,12 @@
             </div>
             <div class="info">
                 <div class="user_portrait">
-                    <img src="img/user.png" alt="" ref="imgT">
+                    <img src="/public/img/user.png" alt="">
                 </div>
                 <div class="user_type">
                     <span>
-                        <a href="#/login" ref="name">登陆</a>
-                        <a href="#/register" ref="del">/注册</a>
+                        <a href="">登陆</a>
+                        <a href="">/注册</a>
                     </span>
                 </div>
             </div>
@@ -23,14 +23,14 @@
                 <div class=""></div>
                 <div class="user_min">
                     <div class="my_favorite">
-                    <a href="#/collection">
-                        <img src="img/love.png" alt="">
+                    <a href="">
+                        <img src="/public/img/love.png" alt="">
                         <span>我的收藏</span>
                     </a>
                 </div>
                 <div class="my_foot">
                     <a href="">
-                        <img src="img/foot.png" alt="">
+                        <img src="/public/img/foot.png" alt="">
                         <span>我的足迹</span>
                     </a>
                 </div>
@@ -57,33 +57,19 @@ export default {
         return {
             liData:[
                 {
-                    imgSrc:"img/tools1.png",
+                    imgSrc:"/public/img/tools1.png",
                     title:'领劵帮助',
                 },
                 {
-                    imgSrc:"img/tools2.png",
+                    imgSrc:"/public/img/tools2.png",
                     title:'专属客服',
                 },
                 {
-                    imgSrc:"img/tools4.png",
+                    imgSrc:"/public/img/tools4.png",
                     title:'意见反馈',
                 }
             ]
         }
-    },
-    beforeRouteEnter (to, from, next) {
-        if(sessionStorage.getItem("token")){
-            next((vm)=>{
-                vm.$refs.name.textContent = sessionStorage.getItem("token");
-                vm.$refs.del.textContent = "";
-                vm.$refs.imgT.src = "img/touxiang.jpg"
-            });
-
-        }else{
-            next("/login");
-        }
-    },
-    methods:{
     }
 }
 </script>
@@ -101,12 +87,14 @@ export default {
 .mine1{
     max-width: 750px;
     height: 6rem;
-    background: url('https://cmsstatic.dataoke.com/wap_new/user/images/user_bg.png?v=2019-09-06') no-repeat #f6f6f6;
+    background: url(/public/img/user_bg.png) no-repeat #f6f6f6;
+    -webkit-background-size: 100% 195px;
+    -moz-background-size: 100% 195px;
     background-size: 100% 195px;
     position: relative;
     z-index: 1;
     zoom: 1;
-    height:100%;
+    overflow: hidden;
 }
 .else{
     position: absolute;
@@ -124,6 +112,7 @@ export default {
     position: relative;
     z-index: 1;
     zoom: 1;
+    margin-top: 16px;
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -226,7 +215,7 @@ export default {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 1.2rem;  
+    height: 67px;  
 }
 .card ul li img{
     width: .5rem;

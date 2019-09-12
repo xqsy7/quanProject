@@ -1,14 +1,14 @@
 <template>
     <div id="app">
-        <keep-alive>
-            <router-view></router-view>  
-        </keep-alive>
-        <TabBar v-if="$route.meta.flag"/>
+        <router-view></router-view>
+        <TabBar/>
         <AsideFixed/>
+        
     </div>
 </template>
 
 <script>
+// import MessageBox from "@lib/messageBox/index.js";
 import TabBar from "@components/tabBar";
 import AsideFixed from "@components/asideFixed";
 
@@ -17,7 +17,17 @@ export default {
     components:{
         TabBar,
         AsideFixed,
+        
+
     },
+    // created(){
+    //     // console.log(MessageBox);
+
+    //     MessageBox.init({
+    //         title:"nihao",
+    //         content:"nihao",
+    //     })
+    // },
     data(){
         return {
            
