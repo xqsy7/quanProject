@@ -16,7 +16,7 @@
         <button @click="clickAddHandler(index)">+</button>
       </div>
       <p class="Subtotal">￥{{item.price}}</p>
-      <p class="operation">删除</p>
+      <p class="operation" @click="delClickHandler(item.id)">删除</p>
     </div>
   </div>
 </template>
@@ -41,6 +41,7 @@ export default {
     }),
     ...mapActions({
       getMkDateHandler:"ShoppingCar/getMkDateHandler",
+      delDataHandler:"ShoppingCar/delDataHandler"
     }),
     clickReduceHandler(index){
       this.reduceHandler(index);
@@ -50,6 +51,9 @@ export default {
     },
     checkedHandler(index){
       this.checkedChangeHandler(index)
+    },
+    delClickHandler(id){
+      this.delDataHandler(id);
     }
   }
 };

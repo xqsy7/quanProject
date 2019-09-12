@@ -162,7 +162,7 @@ export default {
   zoom: 1;
   right: 0;
   text-align: center;
-  top: 100%;
+  top: 83%;
   font-size: 0.3rem;
   width: 120px;
   margin-top: -19px;

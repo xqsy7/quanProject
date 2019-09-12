@@ -5,7 +5,7 @@ const state = {
 };
 
 const actions = {
-    getCarsDataHandler(commit,value){
+    getCarsDataHandler({commit},value){
         axios({
             method:"post",
             url:"http://localhost:3000/shoppingList",
@@ -26,6 +26,9 @@ const actions = {
              commit("getCarDataHandler",data);
         })
         
+    },
+    delDataHandler({commit},index){
+        console.log(index)
     }
 };
 
